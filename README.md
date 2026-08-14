@@ -48,9 +48,8 @@ Two earlier attempts existed:
 
 This rebuild keeps the brand and copy but uses a fresh, more editorial layout.
 
-> Note: `dean_professional.jpg` in the Django project is **not** a headshot. It's a
-> joke photo of two people, one in a Scooby-Doo costume. It was deliberately not
-> carried over.
+> Note: despite its filename, `dean_professional.jpg` in the Django project is not a
+> usable headshot. It was deliberately not carried over.
 
 ## What still needs real content
 
