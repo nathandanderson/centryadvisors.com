@@ -1,0 +1,15 @@
+# OS cruft
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Python (only used for the local preview server / image tooling)
+__pycache__/
+*.py[cod]
+venv/
+.venv/
