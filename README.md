@@ -85,18 +85,27 @@ rather than a stale year. There is no pure-HTML way to render the current year.
 
 ## Deploying
 
-Any static host, all with free tiers:
+Hosted on **Cloudflare Pages**, deployed automatically from `main`.
 
-- **Netlify**: drag this folder onto <https://app.netlify.com/drop>. Easiest.
-- **Cloudflare Pages** or **Vercel**: connect a Git repo, no build command.
-- **GitHub Pages**: push, then enable Pages on `main`.
+- Build command: none. Output directory: `/`. There is no build step.
+- `_headers` sets the response headers, including a strict Content-Security-Policy.
+  Cloudflare strips this file from the published output.
+- `404.html` is served automatically by Cloudflare for unknown paths.
 
-For a custom domain, point its DNS at whichever host you pick.
+**Why not GitHub Pages:** its terms state it "cannot be used as a free web-hosting
+service to run your online business ... or any other website that is primarily
+directed at either facilitating commercial transactions". A brochure site probably
+falls outside that, but the wording is vague and the judgment is GitHub's to make.
+Cloudflare's free tier permits commercial use outright, so the question disappears.
 
-**When you deploy a change to `styles.css` or `script.js`, bump the `?v=` number on
-their tags in `index.html`.** Browsers cache both aggressively, and a stale stylesheet
-is not a harmless glitch here: the founder photo depends on a CSS `height: auto` rule
-to override its `height` attribute, so old CSS renders it stretched.
+**If Cloudflare Web Analytics is ever enabled**, its script loads from
+`static.cloudflareinsights.com` and must be added to `script-src` in `_headers`,
+or the CSP will silently block it.
+
+**When you change `styles.css` or `script.js`, bump the `?v=` number** on their tags
+in `index.html` and `404.html`. `_headers` sets `no-cache` on the HTML so markup
+updates land immediately, but the versioned asset URLs are what force browsers to
+pick up new CSS and JS.
 
 ## Design notes
 
