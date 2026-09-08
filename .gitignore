@@ -13,3 +13,7 @@ __pycache__/
 *.py[cod]
 venv/
 .venv/
+
+# wrangler
+.wrangler/
+node_modules/

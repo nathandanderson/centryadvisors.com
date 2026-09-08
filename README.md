@@ -4,25 +4,29 @@ Static one-page marketing site for Centry Advisors (Dean Anderson, fractional
 CEO/CFO consulting, Salt Lake City). No build step, no dependencies, no framework.
 
 ```
-index.html          All page content
-styles.css          All styling; design tokens live in :root at the top
-script.js           Mobile nav, scroll-spy, scroll reveals, contact form
-assets/
-  centry-advisors-logo.png   Real brand logo (338×68)
-  favicon.ico                Real favicon
-  hero.jpg                   Hero background (2000×1335, 183KB)
-  dean-anderson.jpg          Founder headshot, cropped 4:5 (900×1125, 109KB)
-  photos/                    Spare stock photos, currently unused
+wrangler.jsonc      Cloudflare Workers config; points at ./public
+public/             Everything that gets published
+  index.html        All page content
+  404.html          Served for unknown paths
+  styles.css        All styling; design tokens live in :root at the top
+  script.js         Mobile nav, scroll-spy, scroll reveals, contact form
+  _headers          Response headers, including the CSP
+  assets/
+    centry-advisors-logo.png   Real brand logo (338x68)
+    favicon.ico                Real favicon
+    hero.jpg                   Hero background (2000x1335, 183KB)
+    dean-anderson.jpg          Founder headshot, cropped 4:5 (900x1125, 109KB)
+    photos/                    Spare stock photos, currently unused
 ```
 
 The headshot is a 4:5 crop of the original supplied photo. To re-crop, adjust the
 `cx` / `top` / `h` values in the snippet recorded in git history, or just drop in any
-4:5 image at `assets/dean-anderson.jpg`. The CSS uses `object-fit: cover`.
+4:5 image at `public/assets/dean-anderson.jpg`. The CSS uses `object-fit: cover`.
 
 ## Run it locally
 
 ```bash
-python -m http.server 4321
+python -m http.server 4321 --directory public
 ```
 
 Then open <http://localhost:4321>.
@@ -69,7 +73,7 @@ keeps a copy in the Formspree dashboard.
   endpoint must be. It is not a credential.
 - **Dean's email address appears nowhere in the served files**, deliberately, to
   keep it away from scrapers. Formspree holds the destination address. Do not
-  reintroduce it into `index.html` or `script.js`.
+  reintroduce it into `public/index.html` or `public/script.js`.
 - `_subject` sets the notification subject line.
 - `_gotcha` is a honeypot: positioned offscreen and hidden from assistive tech, so
   only bots fill it. Formspree silently discards those submissions.
@@ -85,12 +89,14 @@ rather than a stale year. There is no pure-HTML way to render the current year.
 
 ## Deploying
 
-Hosted on **Cloudflare Pages**, deployed automatically from `main`.
+Hosted on **Cloudflare Workers** (static assets), deployed automatically from `main`.
 
-- Build command: none. Output directory: `/`. There is no build step.
-- `_headers` sets the response headers, including a strict Content-Security-Policy.
+- Deployed as a static-only Worker. Build command must stay **empty**; the
+  deploy command is `npx wrangler deploy`, which reads `wrangler.jsonc`.
+- Only `public/` is published, so the README and config are never served.
+- `public/_headers` sets the response headers, including a strict Content-Security-Policy.
   Cloudflare strips this file from the published output.
-- `404.html` is served automatically by Cloudflare for unknown paths.
+- `404.html` is served for unknown paths via `not_found_handling: "404-page"`.
 
 **Why not GitHub Pages:** its terms state it "cannot be used as a free web-hosting
 service to run your online business ... or any other website that is primarily
@@ -103,7 +109,7 @@ Cloudflare's free tier permits commercial use outright, so the question disappea
 or the CSP will silently block it.
 
 **When you change `styles.css` or `script.js`, bump the `?v=` number** on their tags
-in `index.html` and `404.html`. `_headers` sets `no-cache` on the HTML so markup
+in `public/index.html` and `public/404.html`. `_headers` sets `no-cache` on the HTML so markup
 updates land immediately, but the versioned asset URLs are what force browsers to
 pick up new CSS and JS.
 
