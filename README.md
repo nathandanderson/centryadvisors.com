@@ -4,8 +4,7 @@ Static one-page marketing site for Centry Advisors (Dean Anderson, fractional
 CEO/CFO consulting, Salt Lake City). No build step, no dependencies, no framework.
 
 ```
-wrangler.jsonc      Cloudflare Workers config; points at ./public
-public/             Everything that gets published
+public/             Everything that gets published (Pages build output directory)
   index.html        All page content
   404.html          Served for unknown paths
   styles.css        All styling; design tokens live in :root at the top
@@ -89,20 +88,24 @@ rather than a stale year. There is no pure-HTML way to render the current year.
 
 ## Deploying
 
-Hosted on **Cloudflare Workers** (static assets), deployed automatically from `main`.
+Hosted on **Cloudflare Pages**, deployed automatically from `main`.
 
-- Deployed as a static-only Worker. Build command must stay **empty**; the
-  deploy command is `npx wrangler deploy`, which reads `wrangler.jsonc`.
-- Only `public/` is published, so the README and config are never served.
+- Build command: **empty**. Build output directory: **`public`**. There is no build step.
+- Only `public/` is published, so the README is never served.
 - `public/_headers` sets the response headers, including a strict Content-Security-Policy.
   Cloudflare strips this file from the published output.
-- `404.html` is served for unknown paths via `not_found_handling: "404-page"`.
+- `404.html` is served automatically by Pages for unknown paths.
 
 **Why not GitHub Pages:** its terms state it "cannot be used as a free web-hosting
 service to run your online business ... or any other website that is primarily
 directed at either facilitating commercial transactions". A brochure site probably
 falls outside that, but the wording is vague and the judgment is GitHub's to make.
 Cloudflare's free tier permits commercial use outright, so the question disappears.
+
+**Pages, not Workers, deliberately.** Workers static assets cannot serve a custom
+domain unless Cloudflare manages that domain's nameservers. `centryadvisors.com`
+keeps its nameservers elsewhere, so Pages is required: it accepts a CNAME from any
+DNS provider.
 
 **If Cloudflare Web Analytics is ever enabled**, its script loads from
 `static.cloudflareinsights.com` and must be added to `script-src` in `_headers`,
