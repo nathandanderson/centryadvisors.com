@@ -67,14 +67,21 @@ keeps a copy in the Formspree dashboard.
 - Endpoint: `https://formspree.io/f/meaqpkjy`, set as the `action` on
   `<form id="contactForm">`. It is public by necessity, as any client-side form
   endpoint must be. It is not a credential.
+- **Dean's email address appears nowhere in the served files**, deliberately, to
+  keep it away from scrapers. Formspree holds the destination address. Do not
+  reintroduce it into `index.html` or `script.js`.
 - `_subject` sets the notification subject line.
 - `_gotcha` is a honeypot: positioned offscreen and hidden from assistive tech, so
   only bots fill it. Formspree silently discards those submissions.
 - Free tier allows 50 submissions/month.
 
-If the `action` is ever emptied, `script.js` falls back to opening the visitor's mail
-client with a pre-filled draft. That fallback is a safety net, not a substitute: it
-fails silently when no mail client is configured.
+If the `action` is ever emptied, the form shows an error pointing people to LinkedIn.
+The old `mailto:` fallback was removed: it exposed the address and failed silently
+when no mail client was configured.
+
+The footer year is written by `script.js` from `new Date()`. The markup ships with an
+empty `<span id="year">`, so with JS disabled the line reads "(c) Centry Advisors"
+rather than a stale year. There is no pure-HTML way to render the current year.
 
 ## Deploying
 

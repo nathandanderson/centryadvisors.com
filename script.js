@@ -4,7 +4,7 @@
 
   /* ---------- Footer year ---------- */
   var year = document.getElementById("year");
-  if (year) year.textContent = String(new Date().getFullYear());
+  if (year) year.textContent = new Date().getFullYear() + " ";
 
   /* ---------- Mobile navigation ---------- */
   var nav = document.getElementById("nav");
@@ -147,19 +147,12 @@
 
     var endpoint = form.getAttribute("action");
 
-    // No endpoint configured yet, so fall back to opening the visitor's mail client
-    // so the form is never a dead end. See README for wiring up Formspree.
+    // Fail loudly rather than silently dropping the message. The old mailto
+    // fallback was removed so no address is exposed to scrapers.
     if (!endpoint) {
-      var subject = encodeURIComponent("Website enquiry from " + form.name.value.trim());
-      var body = encodeURIComponent(
-        "Name: " + form.name.value.trim() + "\n" +
-        "Email: " + form.email.value.trim() + "\n" +
-        "Company: " + (form.company.value.trim() || "Not provided") + "\n\n" +
-        form.message.value.trim()
-      );
-      window.location.href = "mailto:dean.anderson@centryadvisors.com?subject=" + subject + "&body=" + body;
-      status.classList.add("is-ok");
-      status.textContent = "Opening your email app…";
+      status.classList.add("is-error");
+      status.textContent =
+        "This form is not configured correctly. Please reach out on LinkedIn instead.";
       return;
     }
 
@@ -181,7 +174,7 @@
       .catch(function () {
         status.classList.add("is-error");
         status.textContent =
-          "Something went wrong. Please email dean.anderson@centryadvisors.com directly.";
+          "Something went wrong. Please try again, or reach out on LinkedIn.";
       })
       .finally(function () {
         button.disabled = false;
