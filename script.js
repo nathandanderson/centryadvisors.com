@@ -91,6 +91,7 @@
 
   function setError(input, message) {
     var field = input.closest(".field");
+    if (!field) return;
     field.classList.add("is-invalid");
     input.setAttribute("aria-invalid", "true");
     if (!field.querySelector(".field__error")) {
@@ -103,6 +104,7 @@
 
   function clearError(input) {
     var field = input.closest(".field");
+    if (!field) return;
     field.classList.remove("is-invalid");
     input.removeAttribute("aria-invalid");
     var err = field.querySelector(".field__error");
@@ -113,7 +115,7 @@
     var ok = true;
     var first = null;
 
-    form.querySelectorAll("input, textarea").forEach(function (input) {
+    form.querySelectorAll(".field input, .field textarea").forEach(function (input) {
       clearError(input);
       if (!input.required) return;
 
