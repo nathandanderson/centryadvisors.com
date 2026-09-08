@@ -279,8 +279,13 @@
       </dl>
     </div>
 
-    <!-- Set action="" to your Formspree endpoint. See README. -->
-    <form class="contact__form" id="contactForm" method="POST" action="" novalidate>
+    <form class="contact__form" id="contactForm" method="POST"
+          action="https://formspree.io/f/meaqpkjy" novalidate>
+      <!-- Formspree control fields: subject line, and a honeypot that bots fill
+           and humans never see, causing the submission to be discarded. -->
+      <input type="hidden" name="_subject" value="New enquiry from centryadvisors.com">
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"
+             aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
       <div class="field">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" autocomplete="name" required>

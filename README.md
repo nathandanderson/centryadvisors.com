@@ -59,20 +59,22 @@ This rebuild keeps the brand and copy but uses a fresh, more editorial layout.
 | `assets/og-image.png` | 1200×630 preview image for when the site is shared on LinkedIn. |
 | Hero photo | `assets/hero.jpg` is generic stock. A real photo of Dean or Salt Lake City would be stronger. Swap the `--hero-image` token in `styles.css`. |
 
-## Wiring up the contact form
+## The contact form
 
-The form's `action` is empty, so submitting currently opens the visitor's email client
-as a fallback. That's never a dead end, but it isn't ideal.
+Submissions POST to Formspree, which emails `dean.anderson@centryadvisors.com` and
+keeps a copy in the Formspree dashboard.
 
-To have submissions arrive as email:
+- Endpoint: `https://formspree.io/f/meaqpkjy`, set as the `action` on
+  `<form id="contactForm">`. It is public by necessity, as any client-side form
+  endpoint must be. It is not a credential.
+- `_subject` sets the notification subject line.
+- `_gotcha` is a honeypot: positioned offscreen and hidden from assistive tech, so
+  only bots fill it. Formspree silently discards those submissions.
+- Free tier allows 50 submissions/month.
 
-1. Create a free form at <https://formspree.io> and copy the endpoint URL.
-2. Paste it into the `action` attribute of `<form id="contactForm">` in `index.html`.
-
-`script.js` already POSTs there and renders success and error states.
-
-On Netlify you can instead add `netlify` and `name="contact"` to the `<form>` tag and
-skip Formspree entirely.
+If the `action` is ever emptied, `script.js` falls back to opening the visitor's mail
+client with a pre-filled draft. That fallback is a safety net, not a substitute: it
+fails silently when no mail client is configured.
 
 ## Deploying
 
