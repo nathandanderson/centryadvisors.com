@@ -55,7 +55,6 @@ This rebuild keeps the brand and copy but uses a fresh, more editorial layout.
 
 | Where | What's needed |
 |---|---|
-| `#contact` | Real phone number. `(801) 555-0100` is a placeholder in the reserved fictional range. Email is confirmed as `dean.anderson@centryadvisors.com`. |
 | `#industries` | Dean to confirm the four sectors and their one-line descriptions. |
 | `assets/og-image.png` | 1200×630 preview image for when the site is shared on LinkedIn. |
 | Hero photo | `assets/hero.jpg` is generic stock. A real photo of Dean or Salt Lake City would be stronger. Swap the `--hero-image` token in `styles.css`. |
