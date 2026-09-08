@@ -345,6 +345,10 @@ ol, ul { list-style: none; margin: 0; padding: 0; }
   background: var(--bg-tint); border: 1px solid var(--line);
   border-radius: var(--radius); padding: clamp(26px, 3.6vw, 40px);
 }
+/* Formspree honeypot. Offscreen rather than display:none so bots still fill it.
+   Kept in CSS, not a style attribute, so the CSP needs no 'unsafe-inline'. */
+.honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
 .field { margin-bottom: 20px; }
 .field label {
   display: block; margin-bottom: 8px;

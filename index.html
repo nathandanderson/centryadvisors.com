@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- Bump ?v= when deploying so browsers don't serve a stale stylesheet. -->
-<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
 
@@ -269,8 +269,8 @@
       <!-- Formspree control fields: subject line, and a honeypot that bots fill
            and humans never see, causing the submission to be discarded. -->
       <input type="hidden" name="_subject" value="New enquiry from centryadvisors.com">
-      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"
-             aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+      <input type="text" name="_gotcha" class="honeypot" tabindex="-1"
+             autocomplete="off" aria-hidden="true">
       <div class="field">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" autocomplete="name" required>
