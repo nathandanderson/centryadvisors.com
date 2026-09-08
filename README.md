@@ -1,6 +1,6 @@
 # Centry Advisors website
 
-Static one-page marketing site for Centry Advisors (Dean Anderson, CPA, fractional
+Static one-page marketing site for Centry Advisors (Dean Anderson, fractional
 CEO/CFO consulting, Salt Lake City). No build step, no dependencies, no framework.
 
 ```
@@ -43,8 +43,8 @@ Two earlier attempts existed:
   `templates/index.html:176`, and references to avatar images that don't exist.
   The logo, favicon and hero photo in `assets/` were salvaged from it.
 - **A Webflow draft**, screenshots only. The brand blue, Poppins typeface, the
-  "CEO & CFO expertise / for a fraction of the cost" line and the five services
-  came from there.
+  "CEO & CFO expertise / for a fraction of the cost" line and the original service
+  list came from there.
 
 This rebuild keeps the brand and copy but uses a fresh, more editorial layout.
 
@@ -55,8 +55,8 @@ This rebuild keeps the brand and copy but uses a fresh, more editorial layout.
 
 | Where | What's needed |
 |---|---|
-| `#work` in `index.html` | Three real engagements. Everything in `[ square brackets ]` is a placeholder. Nothing was invented. |
-| `#contact` | Real email and phone. Currently `dean@centryadvisors.com` and a fake `(801) 555-0100`. Both appear in `index.html` **and** in the mailto fallback in `script.js`. |
+| `#contact` | Real phone number. `(801) 555-0100` is a placeholder in the reserved fictional range. Email is confirmed as `dean.anderson@centryadvisors.com`. |
+| `#industries` | Dean to confirm the four sectors and their one-line descriptions. |
 | `assets/og-image.png` | 1200×630 preview image for when the site is shared on LinkedIn. |
 | Hero photo | `assets/hero.jpg` is generic stock. A real photo of Dean or Salt Lake City would be stronger. Swap the `--hero-image` token in `styles.css`. |
 

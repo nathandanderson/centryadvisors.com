@@ -157,7 +157,7 @@
         "Company: " + (form.company.value.trim() || "Not provided") + "\n\n" +
         form.message.value.trim()
       );
-      window.location.href = "mailto:dean@centryadvisors.com?subject=" + subject + "&body=" + body;
+      window.location.href = "mailto:dean.anderson@centryadvisors.com?subject=" + subject + "&body=" + body;
       status.classList.add("is-ok");
       status.textContent = "Opening your email app…";
       return;
@@ -181,7 +181,7 @@
       .catch(function () {
         status.classList.add("is-error");
         status.textContent =
-          "Something went wrong. Please email dean@centryadvisors.com directly.";
+          "Something went wrong. Please email dean.anderson@centryadvisors.com directly.";
       })
       .finally(function () {
         button.disabled = false;
